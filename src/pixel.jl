@@ -116,7 +116,7 @@ end
 
 UnitVector(vec::UnitVector) = vec
 
-@doc doc"""
+@doc raw"""
     verify_angles(θ, ϕ)
 
 Spherical coordinates expect $θ ∈ [0,π]$, and $ϕ ∈ [0,2π)$.  This function simply checks and
