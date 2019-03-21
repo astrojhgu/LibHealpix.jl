@@ -49,8 +49,10 @@ function mollweide(map::HealpixMap, size=(512, 1024))
     img = zeros(eltype(map), reverse(size))
     δx = 4/size[2]
     δy = 2/size[1]
-    x = linspace(-2+δx/2, 2-δx/2, size[2])
-    y = linspace(-1+δy/2, 1-δy/2, size[1])
+    #x = linspace(-2+δx/2, 2-δx/2, size[2])
+    x=range(-2+δx/2; stop=2-δx/2, length=size[2])
+    #y = linspace(-1+δy/2, 1-δy/2, size[1])
+    y = range(-1+δy/2;stop=1-δy/2, length=size[1])
     for j = 1:size[1]
         sinΩ = -y[j]
         cosΩ = sqrt(1-sinΩ^2)

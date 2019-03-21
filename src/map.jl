@@ -520,7 +520,7 @@ function query_disc(nside, ordering, θ, ϕ, radius; inclusive=true)
     ptr = ccall(("query_disc", libhealpixwrapper), Ptr{Cint},
                 (Cint, Cint, Cdouble, Cdouble, Cdouble, Bool, Ref{Cint}),
                 nside, ordering, θ′, ϕ′, radius, inclusive, len)
-    arr = unsafe_wrap(Array, ptr, len[], true)
+    arr = unsafe_wrap(Array, ptr, len[], own=true)
     arr .+= Cint(1) # convert to 1-based indexing
     arr
 end
