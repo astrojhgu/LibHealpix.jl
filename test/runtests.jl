@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using LibHealpix
-using Base.Test
+using Test
 using FITSIO.Libcfitsio
 
 srand(123)
