@@ -328,8 +328,8 @@ end
 @inline broadcast_nside(x, y, z...) = _broadcast_nside(_nside(x), broadcast_nside(y, z...))
 @inline broadcast_nside(x, y) = _broadcast_nside(_nside(x), _nside(y))
 @inline broadcast_nside(x) = _nside(x)
-@inline _broadcast_nside(nside::Integer, ::Void) = nside
-@inline _broadcast_nside(::Void, nside::Integer) = nside
+@inline _broadcast_nside(nside::Integer, ::Nothing) = nside
+@inline _broadcast_nside(::Nothing, nside::Integer) = nside
 @inline function _broadcast_nside(nside1::Integer, nside2::Integer)
     nside1 == nside2 || err("cannot broadcast two Healpix maps with different nsides")
     nside1

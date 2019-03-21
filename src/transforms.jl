@@ -20,7 +20,7 @@ for (T, suffix) in ((Float32, "_float"), (Float64, "_double"))
     @eval function map2alm(map::RingHealpixMap{$T}, lmax::Integer, mmax::Integer;
                            iterations::Integer=0)
         coefficients = zeros(Complex{$T}, ncoeff(lmax, mmax))
-        ccall(($map2alm_name, libhealpixwrapper), Void,
+        ccall(($map2alm_name, libhealpixwrapper), Nothing,
               (Cint, Cint, Ptr{$T}, Cint, Cint, Cint, Ptr{Complex{$T}}),
               map.nside, ring, map.pixels, lmax, mmax, iterations, coefficients)
         Alm(lmax, mmax, coefficients)
@@ -28,7 +28,7 @@ for (T, suffix) in ((Float32, "_float"), (Float64, "_double"))
 
     @eval function alm2map(alm::Alm{Complex{$T}}, nside::Integer)
         pixels = zeros($T, nside2npix(nside))
-        ccall(($alm2map_name, libhealpixwrapper), Void,
+        ccall(($alm2map_name, libhealpixwrapper), Nothing,
               (Cint, Cint, Ptr{Complex{$T}}, Cint, Ptr{$T}),
               alm.lmax, alm.mmax, alm.coefficients, nside, pixels)
         RingHealpixMap(nside, pixels)

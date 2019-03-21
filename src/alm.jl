@@ -295,7 +295,7 @@ Base.Broadcast.BroadcastStyle(::Type{Alm}, ::Type{Any}) = Alm
 Base.Broadcast.BroadcastStyle(::Type{Array}, ::Type{Alm}) = Alm
 Base.Broadcast.BroadcastStyle(::Type{Alm}, ::Type{Array}) = Alm
 
-function Base.Broadcast.broadcast_c(f, ::Type{Alm}, args...)
+function Base.Broadcast.broadcast(f, ::Type{Alm}, args...)
     lmax = broadcast_lmax(args...)
     mmax = broadcast_mmax(args...)
     coefficients = broadcast_coefficients(args...)
@@ -305,8 +305,8 @@ end
 @inline broadcast_lmax(x, y, z...) = _broadcast_lmax(_lmax(x), broadcast_lmax(y, z...))
 @inline broadcast_lmax(x, y) = _broadcast_lmax(_lmax(x), _lmax(y))
 @inline broadcast_lmax(x) = _lmax(x)
-@inline _broadcast_lmax(lmax::Integer, ::Void) = lmax
-@inline _broadcast_lmax(::Void, lmax::Integer) = lmax
+@inline _broadcast_lmax(lmax::Integer, ::Nothing) = lmax
+@inline _broadcast_lmax(::Nothing, lmax::Integer) = lmax
 @inline function _broadcast_lmax(lmax1::Integer, lmax2::Integer)
     lmax1 == lmax2 || err("cannot broadcast two Alms with different values for lmax")
     lmax1
@@ -317,8 +317,8 @@ end
 @inline broadcast_mmax(x, y, z...) = _broadcast_mmax(_mmax(x), broadcast_mmax(y, z...))
 @inline broadcast_mmax(x, y) = _broadcast_mmax(_mmax(x), _mmax(y))
 @inline broadcast_mmax(x) = _mmax(x)
-@inline _broadcast_mmax(mmax::Integer, ::Void) = mmax
-@inline _broadcast_mmax(::Void, mmax::Integer) = mmax
+@inline _broadcast_mmax(mmax::Integer, ::Nothing) = mmax
+@inline _broadcast_mmax(::Nothing, mmax::Integer) = mmax
 @inline function _broadcast_mmax(mmax1::Integer, mmax2::Integer)
     mmax1 == mmax2 || err("cannot broadcast two Alms with different values for mmax")
     mmax1
