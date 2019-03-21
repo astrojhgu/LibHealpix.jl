@@ -16,8 +16,9 @@
 using LibHealpix
 using Test
 using FITSIO.Libcfitsio
+import Random
 
-srand(123)
+Random.seed!(123)
 @testset "LibHealpix Tests" begin
     include("pixel.jl")
     include("rings.jl")
