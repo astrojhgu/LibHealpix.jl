@@ -68,6 +68,6 @@ function mollweide(map::HealpixMap, size=(512, 1024))
             end
         end
     end
-    img.'
+    transform(img)
 end
 

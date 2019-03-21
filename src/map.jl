@@ -303,23 +303,23 @@ Base.:(==)(lhs::HealpixMap, rhs::AbstractVector) = false
 Base.:(==)(lhs::AbstractVector, rhs::HealpixMap) = false
 
 # Custom broadcasting
-Base.Broadcast.broadcast_indices(::Type{<:HealpixMap}, map) = indices(map)
-Base.Broadcast._containertype(::Type{<:RingHealpixMap}) = RingHealpixMap
-Base.Broadcast._containertype(::Type{<:NestHealpixMap}) = NestHealpixMap
-Base.Broadcast.promote_containertype(::Type{Any}, ::Type{T}) where {T<:HealpixMap} = T
-Base.Broadcast.promote_containertype(::Type{T}, ::Type{Any}) where {T<:HealpixMap} = T
-Base.Broadcast.promote_containertype(::Type{Array}, ::Type{T}) where {T<:HealpixMap} = T
-Base.Broadcast.promote_containertype(::Type{T}, ::Type{Array}) where {T<:HealpixMap} = T
+Base.Broadcast.broadcast_axes(::Type{<:HealpixMap}, map) = indices(map)
+Base.Broadcast.BroadcastStyle(::Type{<:RingHealpixMap}) = RingHealpixMap
+Base.Broadcast.BroadcastStyle(::Type{<:NestHealpixMap}) = NestHealpixMap
+Base.Broadcast.BroadcastStyle(::Type{Any}, ::Type{T}) where {T<:HealpixMap} = T
+Base.Broadcast.BroadcastStyle(::Type{T}, ::Type{Any}) where {T<:HealpixMap} = T
+Base.Broadcast.BroadcastStyle(::Type{Array}, ::Type{T}) where {T<:HealpixMap} = T
+Base.Broadcast.BroadcastStyle(::Type{T}, ::Type{Array}) where {T<:HealpixMap} = T
 
-function Base.Broadcast.promote_containertype(::Type{RingHealpixMap}, ::Type{NestHealpixMap})
+function Base.Broadcast.BroadcastStyle(::Type{RingHealpixMap}, ::Type{NestHealpixMap})
     err("cannot broadcast a ring ordered map with a nest ordered map")
 end
 
-function Base.Broadcast.promote_containertype(::Type{NestHealpixMap}, ::Type{RingHealpixMap})
+function Base.Broadcast.BroadcastStyle(::Type{NestHealpixMap}, ::Type{RingHealpixMap})
     err("cannot broadcast a ring ordered map with a nest ordered map")
 end
 
-function Base.Broadcast.broadcast_c(f, ::Type{T}, args...) where T<:HealpixMap
+function Base.Broadcast.broadcast(f, ::Type{T}, args...) where T<:HealpixMap
     nside  = broadcast_nside(args...)
     pixels = broadcast_pixels(args...)
     T(nside, broadcast(f, pixels...))

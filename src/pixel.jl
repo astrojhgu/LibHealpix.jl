@@ -116,7 +116,7 @@ end
 
 UnitVector(vec::UnitVector) = vec
 
-doc"""
+@doc doc"""
     verify_angles(θ, ϕ)
 
 Spherical coordinates expect $θ ∈ [0,π]$, and $ϕ ∈ [0,2π)$.  This function simply checks and
@@ -130,7 +130,7 @@ function verify_angles(θ, ϕ)
     θ_float, ϕ_float
 end
 
-doc"""
+@doc doc"""
     ang2vec(theta, phi)
 
 Compute the Cartesian unit vector to the spherical coordinates $(θ, ϕ)$.
@@ -167,7 +167,7 @@ function ang2vec(θ, ϕ)
     UnitVector(x, y, z)
 end
 
-doc"""
+@doc doc"""
     vec2ang(vec)
 
 Compute the spherical coordinates $(θ, ϕ)$ from the given unit vector.
@@ -203,7 +203,7 @@ for f in (:nest2ring, :ring2nest)
     @eval function $f(nside::Integer, ipix::Integer)
         ipix -= 1 # Subtract one to convert back to a 0-indexed scheme
         ipixoutptr = Ref{Clong}(0)
-        ccall(($(string(f)), libchealpix), Void, (Clong, Clong, Ref{Clong}),
+        ccall(($(string(f)), libchealpix), Nothing, (Clong, Clong, Ref{Clong}),
               nside, ipix, ipixoutptr)
         ipixoutptr[] + 1 # Add one to convert to a 1-indexed scheme
     end
@@ -213,7 +213,7 @@ for f in (:ang2pix_nest, :ang2pix_ring)
     @eval function $f(nside::Integer, θ::Real, ϕ::Real)
         θ′, ϕ′ = verify_angles(θ, ϕ)
         ipixptr = Ref{Clong}(0)
-        ccall(($(string(f)), libchealpix), Void, (Clong, Cdouble, Cdouble, Ref{Clong}),
+        ccall(($(string(f)), libchealpix), Nothing, (Clong, Cdouble, Cdouble, Ref{Clong}),
               nside, θ′, ϕ′, ipixptr)
         ipixptr[] + 1 # Add one to convert to a 1-indexed scheme
     end
@@ -224,7 +224,7 @@ for f in (:pix2ang_nest, :pix2ang_ring)
         ipix -= 1 # Subtract one to convert back to a 0-indexed scheme
         θptr = Ref{Cdouble}(0.0)
         ϕptr = Ref{Cdouble}(0.0)
-        ccall(($(string(f)), libchealpix), Void, (Clong, Clong, Ref{Cdouble}, Ref{Cdouble}),
+        ccall(($(string(f)), libchealpix), Nothing, (Clong, Clong, Ref{Cdouble}, Ref{Cdouble}),
               nside, ipix, θptr, ϕptr)
         θptr[], ϕptr[]
     end
@@ -234,7 +234,7 @@ for f in (:vec2pix_nest, :vec2pix_ring)
     @eval function $f(nside::Integer, vec::AbstractVector)
         vec′ = UnitVector(vec)
         ipixptr = Ref{Clong}(0)
-        ccall(($(string(f)), libchealpix), Void, (Clong, Ptr{Cdouble}, Ref{Clong}),
+        ccall(($(string(f)), libchealpix), Nothing, (Clong, Ptr{Cdouble}, Ref{Clong}),
               nside, vec′, ipixptr)
         ipixptr[] + 1 # Add one to convert to a 1-indexed scheme
     end
@@ -244,7 +244,7 @@ for f in (:pix2vec_nest, :pix2vec_ring)
     @eval function $f(nside::Integer, ipix::Integer)
         ipix -= 1 # Subtract one to convert back to a 0-indexed scheme
         vec = Ref{UnitVector}(UnitVector(0, 0, 1))
-        ccall(($(string(f)), libchealpix), Void, (Clong, Clong, Ptr{Cdouble}),
+        ccall(($(string(f)), libchealpix), Nothing, (Clong, Clong, Ptr{Cdouble}),
               nside, ipix, vec)
         vec[]
     end
@@ -298,7 +298,7 @@ julia> ring2nest(256, 2)
 """
 ring2nest
 
-doc"""
+@doc doc"""
     ang2pix_nest(nside, theta, phi)
 
 Compute the pixel index (in the nested scheme) that contains the point on the sphere given by the
@@ -324,7 +324,7 @@ julia> ang2pix_nest(256, π/2, π/2)
 """
 ang2pix_nest
 
-doc"""
+@doc doc"""
     ang2pix_ring(nside, theta, phi)
 
 Compute the pixel index (in the ring scheme) that contains the point on the sphere given by the
@@ -350,7 +350,7 @@ julia> ang2pix_ring(256, π/2, π/2)
 """
 ang2pix_ring
 
-doc"""
+@doc doc"""
     pix2ang_nest(nside, ipix)
 
 Compute the spherical coordinates $(θ, ϕ)$ corresponding to the given pixel center.
@@ -374,7 +374,7 @@ julia> pix2ang_nest(256, 2)
 """
 pix2ang_nest
 
-doc"""
+@doc doc"""
     pix2ang_ring(nside, ipix)
 
 Compute the spherical coordinates $(θ, ϕ)$ corresponding to the given pixel center.

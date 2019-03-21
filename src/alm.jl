@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-doc"""
+@doc doc"""
     struct Alm{T<:Number} <: AbstractVector{T}
 
 This type holds a vector of spherical harmonic coefficients.
@@ -152,7 +152,7 @@ function setindex_lm!(alm::Alm, value, l::Integer, ::Colon)
     end
 end
 
-doc"""
+@doc doc"""
     @lm
 
 This macro is used to index an `Alm` object when given the values for quantum numbers $l$ and $m$.
@@ -244,7 +244,7 @@ end
 Base.length(iter::QuantumNumberIterator) = ((2iter.lmax + 2 - iter.mmax) * (iter.mmax + 1)) ÷ 2
 Base.eltype(::Type{QuantumNumberIterator}) = Tuple{Int, Int}
 
-doc"""
+@doc doc"""
     lm(lmax, mmax)
     lm(alm)
 
@@ -288,12 +288,12 @@ Base.:(==)(lhs::Alm, rhs::AbstractVector) = false
 Base.:(==)(lhs::AbstractVector, rhs::Alm) = false
 
 # Custom broadcasting
-Base.Broadcast.broadcast_indices(::Type{<:Alm}, alm) = indices(alm)
-Base.Broadcast._containertype(::Type{<:Alm}) = Alm
-Base.Broadcast.promote_containertype(::Type{Any}, ::Type{Alm}) = Alm
-Base.Broadcast.promote_containertype(::Type{Alm}, ::Type{Any}) = Alm
-Base.Broadcast.promote_containertype(::Type{Array}, ::Type{Alm}) = Alm
-Base.Broadcast.promote_containertype(::Type{Alm}, ::Type{Array}) = Alm
+Base.Broadcast.broadcast_axes(::Type{<:Alm}, alm) = indices(alm)
+Base.Broadcast.BroadcastStyle(::Type{<:Alm}) = Alm
+Base.Broadcast.BroadcastStyle(::Type{Any}, ::Type{Alm}) = Alm
+Base.Broadcast.BroadcastStyle(::Type{Alm}, ::Type{Any}) = Alm
+Base.Broadcast.BroadcastStyle(::Type{Array}, ::Type{Alm}) = Alm
+Base.Broadcast.BroadcastStyle(::Type{Alm}, ::Type{Array}) = Alm
 
 function Base.Broadcast.broadcast_c(f, ::Type{Alm}, args...)
     lmax = broadcast_lmax(args...)

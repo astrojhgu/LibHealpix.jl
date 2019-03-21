@@ -17,7 +17,7 @@
 # Healpix_cxx is licensed under GPL-2.0 or later, and is developed by the Max-Planck-Institut fuer
 # Astrophysik.
 
-doc"""
+@doc doc"""
 Returns the number of the next ring to the north of $z=\cos(θ)$.  It may return 0; in this case $z$
 lies north of all rings.
 
@@ -33,7 +33,7 @@ function ring_above(nside, z)
     end
 end
 
-doc"""
+@doc doc"""
 Returns useful information about a given ring of the map.
 
 - `ring` - the ring number (the number of the first ring is 1)
