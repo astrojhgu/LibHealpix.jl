@@ -54,7 +54,7 @@ function ring_info2(nside, ring)
         tmp = northring*northring*fact2
         cosθ = 1 - tmp
         sinθ = sqrt(tmp*(2-tmp))
-        θ = atan2(sinθ, cosθ)
+        θ = atan(sinθ, cosθ)
         ringpix = 4northring
         shifted = true
         startpix = 2northring*(northring - 1)

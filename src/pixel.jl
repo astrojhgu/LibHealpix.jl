@@ -194,7 +194,7 @@ julia> vec2ang([0, 0, 1])
 function vec2ang(vec)
     vec′ = UnitVector(vec)
     θ = acos(vec′.z)
-    ϕ = atan2(vec′.y, vec′.x)
+    ϕ = atan(vec′.y, vec′.x)
     ϕ = mod2pi(ϕ)
     θ, ϕ
 end
