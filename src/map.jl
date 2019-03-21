@@ -186,7 +186,7 @@ vec2pix(map::NestHealpixMap, vec)  = vec2pix_nest(map.nside, vec)
 pix2vec(map::RingHealpixMap, ipix) = pix2vec_ring(map.nside, ipix)
 pix2vec(map::NestHealpixMap, ipix) = pix2vec_nest(map.nside, ipix)
 
-doc"""
+@doc raw"""
     ang2pix(map, theta, phi)
 
 Compute the pixel index that contains the point on the sphere given by the spherical coordinates
@@ -212,7 +212,7 @@ julia> ang2pix(NestHealpixMap(Float64, 256), π/2, π/2)
 """
 ang2pix
 
-doc"""
+@doc raw"""
     pix2ang(map, ipix)
 
 Compute the spherical coordinates $(θ, ϕ)$ corresponding to the given pixel center.
@@ -382,7 +382,7 @@ function _interpolate_left_right(map, ring, θ, ϕ)
     θ′, startpix+i1, startpix+i2, weight
 end
 
-doc"""
+@doc raw"""
     LibHealpix.interpolate(map, theta, phi)
 
 Linearly interpolate the Healpix map at the given spherical coordinates $(θ, ϕ)$.
@@ -480,7 +480,7 @@ function interpolate(map, θ, ϕ)
     numerator / denominator
 end
 
-doc"""
+@doc raw"""
     query_disc(nside, ordering, theta, phi, radius; inclusive=true)
     query_disc(map, theta, phi, radius; inclusive=true)
 

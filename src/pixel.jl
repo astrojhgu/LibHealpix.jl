@@ -130,7 +130,7 @@ function verify_angles(θ, ϕ)
     θ_float, ϕ_float
 end
 
-@doc doc"""
+@doc raw"""
     ang2vec(theta, phi)
 
 Compute the Cartesian unit vector to the spherical coordinates $(θ, ϕ)$.
@@ -167,7 +167,7 @@ function ang2vec(θ, ϕ)
     UnitVector(x, y, z)
 end
 
-@doc doc"""
+@doc raw"""
     vec2ang(vec)
 
 Compute the spherical coordinates $(θ, ϕ)$ from the given unit vector.
@@ -298,7 +298,7 @@ julia> ring2nest(256, 2)
 """
 ring2nest
 
-@doc doc"""
+@doc raw"""
     ang2pix_nest(nside, theta, phi)
 
 Compute the pixel index (in the nested scheme) that contains the point on the sphere given by the
@@ -324,7 +324,7 @@ julia> ang2pix_nest(256, π/2, π/2)
 """
 ang2pix_nest
 
-@doc doc"""
+@doc raw"""
     ang2pix_ring(nside, theta, phi)
 
 Compute the pixel index (in the ring scheme) that contains the point on the sphere given by the
@@ -350,7 +350,7 @@ julia> ang2pix_ring(256, π/2, π/2)
 """
 ang2pix_ring
 
-@doc doc"""
+@doc raw"""
     pix2ang_nest(nside, ipix)
 
 Compute the spherical coordinates $(θ, ϕ)$ corresponding to the given pixel center.
@@ -374,7 +374,7 @@ julia> pix2ang_nest(256, 2)
 """
 pix2ang_nest
 
-@doc doc"""
+@doc raw"""
     pix2ang_ring(nside, ipix)
 
 Compute the spherical coordinates $(θ, ϕ)$ corresponding to the given pixel center.

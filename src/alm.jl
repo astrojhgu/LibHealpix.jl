@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-@doc doc"""
+@doc raw"""
     struct Alm{T<:Number} <: AbstractVector{T}
 
 This type holds a vector of spherical harmonic coefficients.
@@ -152,7 +152,7 @@ function setindex_lm!(alm::Alm, value, l::Integer, ::Colon)
     end
 end
 
-@doc doc"""
+@doc raw"""
     @lm
 
 This macro is used to index an `Alm` object when given the values for quantum numbers $l$ and $m$.
@@ -244,7 +244,7 @@ end
 Base.length(iter::QuantumNumberIterator) = ((2iter.lmax + 2 - iter.mmax) * (iter.mmax + 1)) ÷ 2
 Base.eltype(::Type{QuantumNumberIterator}) = Tuple{Int, Int}
 
-@doc doc"""
+@doc raw"""
     lm(lmax, mmax)
     lm(alm)
 
