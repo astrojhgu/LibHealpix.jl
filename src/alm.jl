@@ -222,9 +222,9 @@ struct QuantumNumberIterator
     end
 end
 
-Base.start(iter::QuantumNumberIterator) = 0, 0
+qmi_start(iter::QuantumNumberIterator) = 0, 0
 
-function Base.next(iter::QuantumNumberIterator, state)
+function qmi_next(iter::QuantumNumberIterator, state)
     l, m = state
     if l == iter.lmax
         l′ = m + 1
@@ -236,9 +236,22 @@ function Base.next(iter::QuantumNumberIterator, state)
     (l, m), (l′, m′)
 end
 
-function Base.done(iter::QuantumNumberIterator, state)
+function qmi_done(iter::QuantumNumberIterator, state)
     l, m = state
     m > iter.mmax
+end
+
+function Base.iterate(iter::QuantumNumberIterator)
+    state=qmi_start(iter)
+    qmi_next(iter, state)
+end
+
+function Base.iterate(iter::QuantumNumberIterator, state)
+    if qmi_done(iter, state)
+        nothing
+    else
+        qmi_next(iter, state)
+    end
 end
 
 Base.length(iter::QuantumNumberIterator) = ((2iter.lmax + 2 - iter.mmax) * (iter.mmax + 1)) ÷ 2
